@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Web.Http;
+using System.Diagnostics;
 
 namespace ServiceApi.Contorllers
 {
@@ -17,6 +18,7 @@ namespace ServiceApi.Contorllers
             try
             {
                 string postData = Request.Content.ReadAsStringAsync().Result;
+                Trace.TraceInformation("postData:" + postData);
 
                 var ReceivedMessage = isRock.LineBot.Utility.Parsing(postData);
 
@@ -29,6 +31,7 @@ namespace ServiceApi.Contorllers
             }
             catch (Exception ex)
             {
+                Trace.TraceError(ex.ToString());
                 return Ok();
             }
         }
@@ -36,6 +39,7 @@ namespace ServiceApi.Contorllers
         [HttpGet]
         public string Demo()
         {
+            Trace.TraceInformation("call Demo ...");
             return DateTime.Now.ToString("yyyy/MM/dd HH:mm:ss");
         }
     }
